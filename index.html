@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono&display=swap" rel="stylesheet">
+    <title>password generator</title>
+</head>
+<body>
+<header class="header">
+   <h1>Code generator</h1>
+</header>
+<div class="container">
+
+    <div class="result-container">
+    <label for="">Result</label>
+    <input type="text" id="password" class="input" placeholder="This is the result">
+    
+</div>
+    <div class="buttons">
+        <button onclick="gen()" id="button">
+            <span class="transition"></span>
+            <span class="gradient"></span>
+            <span class="label">Generate</span>
+        </button>
+        <button onclick="copy()" id="button">
+                <span class="transition"></span>
+                <span class="gradient"></span>
+                <span class="label">copy</span>
+            
+        </button>
+    </div>
+    <fieldset class="choices">
+        <legend style="color: white;">settings</legend>
+        <div class="left-choices">
+        <label class="cyberpunk-checkbox-label">
+        <input type="checkbox" id="numbers" class="cyberpunk-checkbox">Numbers
+        </label>
+        <label class="cyberpunk-checkbox-label">
+        <input type="checkbox" id="upper" class="cyberpunk-checkbox">uppercase
+        </label>
+        <label class="cyberpunk-checkbox-label">
+        <input type="checkbox" id="lower" class="cyberpunk-checkbox">lowercase
+        </label>
+        <label class="cyberpunk-checkbox-label">
+        <input type="checkbox" id="sym" class="cyberpunk-checkbox">Symbols
+        </label>
+        </div>
+        <div class="right-choices">
+        <label class="cyberpunk-checkbox-label">
+        <input type="range" min="6" max="20" id="rangescroller" step="1" style="display: flex; justify-content: center; align-items: center;background: transparent;
+        margin: 10px;" >
+        <input type="number" min="6" max="20" id="rangenumber">Length
+        </label>
+        </div>
+    </fieldset>
+</div>
+    <script>
+        var numrange=document.getElementById("rangenumber");
+        var scrollrange=document.getElementById("rangescroller");
+        numrange.addEventListener("input",function(){
+            scrollrange.value=numrange.value;
+        })
+        scrollrange.addEventListener("input",function(){
+            numrange.value=scrollrange.value;
+        })
+        var password=document.getElementById("password");
+        var lower=document.getElementById("lower");
+        var upper = document.getElementById("upper");
+        var number=document.getElementById("numbers");
+        var symbol = document.getElementById("sym");
+        function gen(){
+        var length=scrollrange.value;
+        var lowercasechar="abcdefghijklmnopqrstuvwxyz";
+        var uppercasechar="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var numbers="0123456789";
+        var symbols="@#$%^&*()!";
+        var genpassword="";
+        var poss=""
+        if(lower.checked) poss+=lowercasechar
+        if(upper.checked) poss+=uppercasechar
+        if(number.checked) poss+=numbers
+        if(symbol.checked) poss+=symbols
+        if ((!symbol.checked) && (!lower.checked) && (!upper.checked) && (!number.checked))
+        alert ("please chose one option")
+        for(var i=1;i<length;i++){
+            var x=Math.floor(Math.random()*poss.length);
+            genpassword += poss[x];
+        }
+            document.getElementById("password").value=genpassword;
+    }
+        function copy(){ 
+            if(document.getElementById("password").value==0)
+            {
+                alert("there s no code")
+            }
+            else{
+            var copiedtxt= document.getElementById("password");
+            copiedtxt.select();
+            document.execCommand("copy");
+            alert("the code is copied succesfully")
+            }
+        }
+    </script>
+</body>
+</html>
