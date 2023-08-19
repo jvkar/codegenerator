@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="tryjs.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Victor+Mono&display=swap" rel="stylesheet">
@@ -30,7 +30,6 @@
                 <span class="transition"></span>
                 <span class="gradient"></span>
                 <span class="label">copy</span>
-            
         </button>
     </div>
     <fieldset class="choices">
@@ -51,14 +50,29 @@
         </div>
         <div class="right-choices">
         <label class="cyberpunk-checkbox-label">
-        <input type="range" min="6" max="20" id="rangescroller" step="1" style="display: flex; justify-content: center; align-items: center;background: transparent;
+        <input type="range" min="8" max="35" id="rangescroller" step="1" style="display: flex; justify-content: center; align-items: center;background: transparent;
         margin: 10px;" >
-        <input type="number" min="6" max="20" id="rangenumber">Length
+        <input type="number" min="8" max="35" id="rangenumber" placeholder="22">Length
         </label>
         </div>
     </fieldset>
 </div>
+<div class="alert1" id="alert1" style="display: none;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    Please chose an option
+</div>
+<div class="alert2" id="alert2" style="display: none;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+     the code is copied seccessfully
+ </div>
+ <div class="alert3" id="alert3" style="display: none;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+     there's nothing to copy please Generate
+ </div>
     <script>
+        var alert1=document.getElementById("alert1");
+        var alert2=document.getElementById("alert2");
+        var alert3=document.getElementById("alert3");
         var numrange=document.getElementById("rangenumber");
         var scrollrange=document.getElementById("rangescroller");
         numrange.addEventListener("input",function(){
@@ -77,33 +91,48 @@
         var lowercasechar="abcdefghijklmnopqrstuvwxyz";
         var uppercasechar="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var numbers="0123456789";
-        var symbols="@#$%^&*()!";
+        var symbols="@#$%^&*()!-.";
         var genpassword="";
         var poss=""
         if(lower.checked) poss+=lowercasechar
         if(upper.checked) poss+=uppercasechar
         if(number.checked) poss+=numbers
         if(symbol.checked) poss+=symbols
-        if ((!symbol.checked) && (!lower.checked) && (!upper.checked) && (!number.checked))
-        alert ("please chose one option")
-        for(var i=1;i<length;i++){
+        if ((!symbol.checked) && (!lower.checked) && (!upper.checked) && (!number.checked)){
+        
+        alert1.style.display="block";
+        
+        document.getElementById("password").value="";
+
+    }
+    setTimeout(function(){alert1.style.display="none";},1600);
+
+    
+        for(var i=0;i<length;i++){
             var x=Math.floor(Math.random()*poss.length);
             genpassword += poss[x];
         }
             document.getElementById("password").value=genpassword;
     }
+
         function copy(){ 
             if(document.getElementById("password").value==0)
             {
-                alert("there s no code")
+                alert3.style.display="block";
+                setTimeout(function(){alert3.style.display="none";},1600);
+                
             }
+            
             else{
             var copiedtxt= document.getElementById("password");
             copiedtxt.select();
             document.execCommand("copy");
-            alert("the code is copied succesfully")
+            alert2.style.display="block";
+            setTimeout(function() {alert2.style.display="none";},1600);
+
             }
         }
+
     </script>
 </body>
 </html>
