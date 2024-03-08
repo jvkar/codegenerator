@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Victor+Mono&display=swap" rel="stylesheet">
@@ -70,6 +70,7 @@
      there's nothing to copy please Generate
  </div>
     <script>
+        var btn = document.getElementById("button");
         var alert1=document.getElementById("alert1");
         var alert2=document.getElementById("alert2");
         var alert3=document.getElementById("alert3");
@@ -86,6 +87,7 @@
         var upper = document.getElementById("upper");
         var number=document.getElementById("numbers");
         var symbol = document.getElementById("sym");
+
         function gen(){
         var length=scrollrange.value;
         var lowercasechar="abcdefghijklmnopqrstuvwxyz";
@@ -94,6 +96,7 @@
         var symbols="@#$%^&*()!-.";
         var genpassword="";
         var poss=""
+        var empty=""
         if(lower.checked) poss+=lowercasechar
         if(upper.checked) poss+=uppercasechar
         if(number.checked) poss+=numbers
@@ -102,12 +105,12 @@
         
         alert1.style.display="block";
         
-        document.getElementById("password").value="";
 
     }
     setTimeout(function(){alert1.style.display="none";},1600);
 
-    
+
+    if((symbol.checked) || (lower.checked) || (upper.checked) || (number.checked))
         for(var i=0;i<length;i++){
             var x=Math.floor(Math.random()*poss.length);
             genpassword += poss[x];
